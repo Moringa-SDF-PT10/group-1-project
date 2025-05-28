@@ -4,13 +4,13 @@ import RestaurantLists from './components/RestaurantList';
 import RestaurantDetails from './components/RestaurantDetails';
 
 function App() {
-  const [restaurants, setRestaurants] = useState([]);
+const[restaurantData, setRestaurantData] = useState([])
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:3001/restaurants')
       .then(r => r.json())
-      .then(data => setRestaurants(data));
+      .then(data => setRestaurantData(data));
   }, []);
 
   return (
@@ -22,7 +22,7 @@ function App() {
         </>
       ) : (
         <RestaurantLists
-          restaurants={restaurants}
+          restaurants={restaurantData}
           onView={setSelectedRestaurant} 
         />
       )}
