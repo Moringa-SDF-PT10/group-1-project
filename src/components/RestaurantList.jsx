@@ -1,6 +1,6 @@
 import Restaurant from './Restaurant';
 
-function RestaurantLists({ restaurants }) {
+function RestaurantLists({ restaurants,onView }) {
   return (
     <div className='restaurant-card'>
       <h2>Welcome Message</h2>
@@ -15,6 +15,7 @@ function RestaurantLists({ restaurants }) {
           hours={restaurant.hours}
           reviews={restaurant.reviews}
           image={restaurant.image}
+          onView={() => onView(restaurant)}
         />
       ))}
     </div>
