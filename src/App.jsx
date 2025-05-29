@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import RestaurantLists from './components/RestaurantList';
-import RestaurantDetails from './components/RestaurantDetails';
+
 
 function App() {
 const[restaurantData, setRestaurantData] = useState([])
-  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
+const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:3001/restaurants')
@@ -15,17 +15,14 @@ const[restaurantData, setRestaurantData] = useState([])
 
   return (
     <div>
-      {selectedRestaurant ? (
-        <>
-          <button onClick={() => setSelectedRestaurant(null)}>Back to All</button>
-          <RestaurantDetails restaurant={selectedRestaurant} />
-        </>
-      ) : (
-        <RestaurantLists
+     (
+         <RestaurantLists
           restaurants={restaurantData}
           onView={setSelectedRestaurant} 
+          selectedRestaurant={selectedRestaurant}
+          setSelectedRestaurant={setSelectedRestaurant}
         />
-      )}
+      )
     </div>
   );
 }
