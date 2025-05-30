@@ -16,7 +16,7 @@ function Login() {
     return (
         <div>
             {!showInputs ? (
-                <button onClick={handleShowInputs}>Show Login</button>
+                <button onClick={handleShowInputs}>Login</button>
             ) : (
                 <form onSubmit={handleLogin}>
                     <div>
