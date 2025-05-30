@@ -1,10 +1,18 @@
 import Restaurant from './Restaurant';
+import RestaurantDetails from './RestaurantDetails';
 
-function RestaurantLists({ restaurants,onView }) {
+function RestaurantLists({ restaurants,onView,selectedRestaurant,setSelectedRestaurant }) {
+  console.log(restaurants)
   return (
     <div className='restaurant-card'>
       <h2>Welcome Message</h2>
-      {restaurants.map((restaurant) => (
+      {selectedRestaurant ? (
+        <>
+          <button onClick={() => setSelectedRestaurant(null)}>Back to All</button>
+          <RestaurantDetails restaurant={selectedRestaurant} />
+        </>
+      ) :
+      (restaurants.map((restaurant) => (
         <Restaurant
           key={restaurant.id}
           name={restaurant.name}
@@ -17,7 +25,7 @@ function RestaurantLists({ restaurants,onView }) {
           image={restaurant.image}
           onView={() => onView(restaurant)}
         />
-      ))}
+      )))}
     </div>
   );
 }
