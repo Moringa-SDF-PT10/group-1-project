@@ -1,58 +1,142 @@
-import { useState, useEffect } from 'react';
-import UserInfo from './UserInfo';
-import FavoriteRestaurants from './FavoriteRestaurants';
-import AddRestaurant from './AddRestaurant';
+import { useState } from 'react';
 
-const Profile = ({ userId }) => {
-  const [user, setUser] = useState(null);
-  const [favorites, setFavorites] = useState([]);
-  const API_URL = "https://restaurant-api-hur7.onrender.com/restaurants";
+const Profile = () => {
+  // User profile state
+  const [profile, setProfile] = useState({
+    name: '',
+    email: '',
+    avatar: null,
+    favoriteRestaurants: []
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-        setFavorites(data.slice(0, 3)); 
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  // Available avatars and restaurants
+  const avatars = ['🐶', '🐱', '🐭', '🐹', '🐰'];
+  const restaurants = [
+    { id: 1, name: 'Lucca Italian' },
+    { id: 2, name: 'Open House Indian' },
+    { id: 3, name: 'Habesha Ethiopian' }
+  ];
 
-    fetchData();
-  }, [userId]);
-
-  const handleAddRestaurant = async (newRestaurant) => {
-    try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newRestaurant)
-      });
-      const data = await response.json();
-      setFavorites([...favorites, data]);
-    } catch (error) {
-      console.error("Error adding restaurant:", error);
-    }
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfile(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-      setFavorites(favorites.filter(restaurant => restaurant.id !== id));
-    } catch (error) {
-      console.error("Error deleting:", error);
-    }
+  const handleAvatarSelect = (avatar) => {
+    setProfile(prev => ({ ...prev, avatar }));
+  };
+
+  const handleRestaurantToggle = (restaurant) => {
+    setProfile(prev => {
+      const exists = prev.favoriteRestaurants.some(r => r.id === restaurant.id);
+      return {
+        ...prev,
+        favoriteRestaurants: exists
+          ? prev.favoriteRestaurants.filter(r => r.id !== restaurant.id)
+          : [...prev.favoriteRestaurants, restaurant]
+      };
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Profile saved:', profile);
+    // Here you would typically send to your API
   };
 
   return (
-    <div className="profile-container">
-      <UserInfo name="John Doe" email="john@example.com" />
-      <FavoriteRestaurants 
-        restaurants={favorites} 
-        onDelete={handleDelete} 
-      />
-      <AddRestaurant onAdd={handleAddRestaurant} />
+    <div className="profile-page">
+      {/* Profile Form */}
+      <form onSubmit={handleSubmit} className="profile-form">
+        <h2>Create Your Profile</h2>
+        
+        <div className="avatar-selector">
+          <p>Choose an avatar:</p>
+          <div className="avatars">
+            {avatars.map(avatar => (
+              <span 
+                key={avatar}
+                className={`avatar-option ${profile.avatar === avatar ? 'selected' : ''}`}
+                onClick={() => handleAvatarSelect(avatar)}
+              >
+                {avatar}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <label>
+          Name:
+          <input 
+            type="text" 
+            name="name" 
+            value={profile.name}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+
+        <label>
+          Email:
+          <input 
+            type="email" 
+            name="email" 
+            value={profile.email}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+
+        <div className="restaurant-selection">
+          <p>Select favorite restaurants:</p>
+          {restaurants.map(restaurant => (
+            <label key={restaurant.id}>
+              <input
+                type="checkbox"
+                checked={profile.favoriteRestaurants.some(r => r.id === restaurant.id)}
+                onChange={() => handleRestaurantToggle(restaurant)}
+              />
+              {restaurant.name}
+            </label>
+          ))}
+        </div>
+
+        <button type="submit">Save Profile</button>
+      </form>
+
+      {/* Profile Preview Card */}
+      {profile.name && (
+        <div className="profile-card">
+          <div className="card-header">
+            <span className="avatar">{profile.avatar || '👤'}</span>
+            <h3>{profile.name}</h3>
+          </div>
+          <p>Email: {profile.email}</p>
+          
+          {profile.favoriteRestaurants.length > 0 && (
+            <div className="favorites">
+              <h4>Favorites:</h4>
+              <ul>
+                {profile.favoriteRestaurants.map(r => (
+                  <li key={r.id}>{r.name}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <button 
+            className="delete-btn"
+            onClick={() => setProfile({
+              name: '',
+              email: '',
+              avatar: null,
+              favoriteRestaurants: []
+            })}
+          >
+            Delete Profile
+          </button>
+        </div>
+      )}
     </div>
   );
 };
