@@ -2,6 +2,7 @@ import Restaurant from './Restaurant';
 import RestaurantDetails from './RestaurantDetails';
 
 function RestaurantLists({ restaurants,onView,selectedRestaurant,setSelectedRestaurant }) {
+  console.log(restaurants)
   return (
     <div className='restaurant-card'>
       <h2>Welcome Message</h2>
