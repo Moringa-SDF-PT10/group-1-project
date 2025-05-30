@@ -20,7 +20,7 @@ function RestaurantDetails({ restaurant }) {
                   <li key={i}>{food}</li>
                 ))}
               </ul>
-              <img src={cat.image} alt={cat.category} />
+              <img src={cat.image} alt={cat.category} className='menu-img'/>
             </div>
           ))}
         </div>
