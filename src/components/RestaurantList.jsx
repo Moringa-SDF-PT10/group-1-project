@@ -25,7 +25,7 @@ function RestaurantLists() {
           reviews={restaurant.reviews}
           image={restaurant.image}
         />
-      )))}
+      ))}
     </div>
   );
 }

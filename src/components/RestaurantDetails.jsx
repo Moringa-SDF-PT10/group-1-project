@@ -8,7 +8,7 @@ function RestaurantDetail() {
   const [restaurant, setRestaurant] = useState(null);
 
   useEffect(() => {
-    fetch('https://restaurant-api-hur7.onrender.com/restaurants/${id}')
+    fetch( `https://restaurant-api-hur7.onrender.com/restaurants/${id}`)
       .then((r) => r.json())
       .then((data) => setRestaurant(data));
   }, [id]);
