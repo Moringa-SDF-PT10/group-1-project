@@ -1,19 +1,21 @@
 import Restaurant from './Restaurant';
-import RestaurantDetails from './RestaurantDetails';
+import { useState, useEffect } from 'react';
 
-function RestaurantLists({ restaurants,onView,selectedRestaurant,setSelectedRestaurant }) {
+function RestaurantLists() {
+  const [restaurantData, setRestaurantData] = useState([]);
+
+  useEffect(() => {
+    fetch('https://restaurant-api-hur7.onrender.com/restaurants')
+      .then(r => r.json())
+      .then(data => setRestaurantData(data));
+  }, []);
+
   return (
-    <div className='restaurant-card'>
-      <h2>Welcome Message</h2>
-      {selectedRestaurant ? (
-        <>
-          <button onClick={() => setSelectedRestaurant(null)}>Back to All</button>
-          <RestaurantDetails restaurant={selectedRestaurant} />
-        </>
-      ) :
-      (restaurants.map((restaurant) => (
+    <div className="restaurant-grid">
+      {restaurantData.map((restaurant) => (
         <Restaurant
           key={restaurant.id}
+          id={restaurant.id}
           name={restaurant.name}
           address={restaurant.address}
           cuisine={restaurant.cuisine}
@@ -22,9 +24,8 @@ function RestaurantLists({ restaurants,onView,selectedRestaurant,setSelectedRest
           hours={restaurant.hours}
           reviews={restaurant.reviews}
           image={restaurant.image}
-          onView={() => onView(restaurant)}
         />
-      )))}
+      ))}
     </div>
   );
 }
