@@ -2,14 +2,13 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 function RestaurantDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [restaurant, setRestaurant] = useState(null);
 
   useEffect(() => {
-    fetch(`https://restaurant-api-hur7.onrender.com/restaurants/${id}`)
+    fetch('https://restaurant-api-hur7.onrender.com/restaurants/${id}')
       .then((r) => r.json())
       .then((data) => setRestaurant(data));
   }, [id]);
@@ -52,4 +51,3 @@ function RestaurantDetail() {
 }
 
 export default RestaurantDetail;
-
