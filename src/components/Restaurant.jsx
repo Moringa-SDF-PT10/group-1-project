@@ -1,28 +1,31 @@
-// Restaurants (restaurants list) (Elvis & Naima)
-    //Image of the restaurant
-    // Name name of the restaurant
-                // ||
-    // (Restaurant ) => name , image , cusines, menu, add to favouritesbutton,
-import RestauarntDetails from './RestaurantDetails';
+import React from "react";
+import { Link } from "react-router-dom";
+function Restaurant({ name, address, cuisine, ratings,hours, reviews, image, id}) {
+
+  return (
+    <div className="restaurant-card">
+      <img src={image} alt={name} className="restaurant-image" />
+      <div className="restaurant-content">
+        <h3 className="restaurant-name">{name}</h3>
+        <p className="restaurant-address">{address}</p>
+        <p className="restaurant-cuisine">{cuisine}</p>
+
+        <div className="restaurant-info">
+          <span className="restaurant-rating">⭐ {ratings}</span>
+          <span className="restaurant-hours">{hours}</span>
+        </div>
 
 
+        {reviews.map(reviews=>(
+            <li key={reviews} className="restaurant-reviews">{reviews}</li>
+        ))}
 
-    function Restaurant({name,address,cuisine,ratings,menu,hours,reviews,image,onView}){
-        console.log({menu})
-        return(
-            <div>
-                 <h3>{name}</h3>
-                 <small>{address}</small>
-                 <p>{cuisine}</p>
-                 <span>{ratings}</span>
-                 <p>{hours}</p>
-                 <p>{reviews}</p>
-                 <button className='restauarant-button' onClick={onView}>View Restauarnt</button>
-                 <img src={image}></img>
-            </div>
-
-        )
-
+         <Link to={`/Restaurants/${id}`} className="restaurant-button">
+          View Restaurant
+        </Link>
+      </div>
+    </div>
+  );
 }
 
-    export default Restaurant;
+export default Restaurant;
