@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-function Signin() {
+function Signup() {
     const [showForm, setShowForm] = useState(false);
     const [form, setForm] = useState({
         name: "",
@@ -58,6 +58,7 @@ function Signin() {
                 Sign Up
             </button>
             {showForm && (
+                <>
                 <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
                     <div>
                         <label>
@@ -67,8 +68,7 @@ function Signin() {
                                 name="name"
                                 value={form.name}
                                 onChange={handleChange}
-                                required
-                            />
+                                required />
                         </label>
                     </div>
                     <div>
@@ -79,8 +79,7 @@ function Signin() {
                                 name="email"
                                 value={form.email}
                                 onChange={handleChange}
-                                required
-                            />
+                                required />
                         </label>
                     </div>
                     <div>
@@ -91,8 +90,7 @@ function Signin() {
                                 name="password"
                                 value={form.password}
                                 onChange={handleChange}
-                                required
-                            />
+                                required />
                         </label>
                     </div>
                     <div>
@@ -103,16 +101,20 @@ function Signin() {
                                 name="confirmPassword"
                                 value={form.confirmPassword}
                                 onChange={handleChange}
-                                required
-                            />
+                                required />
                         </label>
                     </div>
                     <button type="submit">Create Account</button>
                 </form>
+                <p className="login-redirect">
+                        Already have an account?{" "}
+                        <Link to="/Login" className="login-link">Log in here</Link>
+                </p>
+            </>
             )}
         </div>
     );
 }
 
-export default Signin;
+export default Signup;
 
