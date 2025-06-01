@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Signin() {
     const [showForm, setShowForm] = useState(false);
@@ -8,18 +10,38 @@ function Signin() {
         password: "",
         confirmPassword: "",
     });
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Add your sign up logic here
         if (form.password !== form.confirmPassword) {
             alert("Passwords do not match!");
             return;
         }
+        try {
+            const res = await fetch('http://localhost:5173/Signin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: form.email, password: form.password }),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                alert(data.message);
+                navigate('/login');
+            } else {
+                alert(data.error || 'Signup failed');
+            }
+        } catch (error) {
+            alert('Signup error');
+            console.error(error);
+        }
+
         alert("Sign up successful!");
         setForm({
             name: "",
