@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './App.css';
+import './Profile.css';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -135,7 +135,7 @@ const Profile = () => {
                   <button
                     key={label}
                     type="button"
-                    className={`avatar-option ${profile.avatar === emoji ? 'selected' : ''}`}
+                    className={avatar-option ${profile.avatar === emoji ? 'selected' : ''}}
                     onClick={() => handleAvatarSelect(emoji)}
                     aria-label={label}
                   >
@@ -197,7 +197,7 @@ const Profile = () => {
                   <button
                     key={option}
                     type="button"
-                    className={`preference-option ${profile.dietaryPreferences.includes(option) ? 'selected' : ''}`}
+                    className={preference-option ${profile.dietaryPreferences.includes(option) ? 'selected' : ''}}
                     onClick={() => handlePreferenceToggle(option)}
                   >
                     {option}
@@ -213,7 +213,7 @@ const Profile = () => {
                   <button
                     key={allergy}
                     type="button"
-                    className={`preference-option ${profile.allergies.includes(allergy) ? 'selected' : ''}`}
+                    className={preference-option ${profile.allergies.includes(allergy) ? 'selected' : ''}}
                     onClick={() => handleAllergyToggle(allergy)}
                   >
                     {allergy}
@@ -229,7 +229,7 @@ const Profile = () => {
                   <button
                     key={location}
                     type="button"
-                    className={`preference-option ${profile.favoriteLocations.includes(location) ? 'selected' : ''}`}
+                    className={preference-option ${profile.favoriteLocations.includes(location) ? 'selected' : ''}}
                     onClick={() => handleLocationToggle(location)}
                   >
                     {location}

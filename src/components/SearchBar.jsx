@@ -9,21 +9,13 @@ function SearchBar({ onSearch }) {
     }
   };
 
-  const handleInputChange = (e) => {
-    const newQuery = e.target.value;
-    setQuery(newQuery);
-    if (onSearch) {
-      onSearch(newQuery); // Trigger search on input change
-    }
-  };
-
   return (
     <div className="search-bar">
       <input
         type="text"
         placeholder="Search for a restaurant..."
         value={query}
-        onChange={handleInputChange}
+        onChange={(e) => setQuery(e.target.value)}
       />
       <button onClick={handleSearch}>Search</button>
     </div>
