@@ -1,7 +1,5 @@
-
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Signup() {
     const [showForm, setShowForm] = useState(false);
@@ -24,26 +22,28 @@ function Signup() {
             return;
         }
         try {
-            const res = await fetch('http://localhost:3001/Signup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: form.email, password: form.password }),
+            const res = await fetch("http://localhost:3001/Signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: form.email,
+                    password: form.password,
+                }),
             });
 
             const data = await res.json();
 
             if (res.ok) {
                 alert(data.message);
-                navigate('/login');
+                navigate("/login");
             } else {
-                alert(data.error || 'Signup failed');
+                alert(data.error || "Signup failed");
             }
         } catch (error) {
-            alert('Signup error');
+            alert("Signup error");
             console.error(error);
         }
 
-        alert("Sign up successful!");
         setForm({
             name: "",
             email: "",
@@ -54,68 +54,64 @@ function Signup() {
     };
 
     return (
-        <div>
-            <button onClick={() => setShowForm(!showForm)}>
+        <div className="signup-container">
+            <button onClick={() => setShowForm(!showForm)} className="signup-toggle-button">
                 Sign Up
             </button>
             {showForm && (
                 <>
-                <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
-                    <div>
-                        <label>
-                            Name:
+                    <form onSubmit={handleSubmit} className="signup-form">
+                        <h2>Create Account</h2>
+                        <div className="form-group">
+                            <label>Name:</label>
                             <input
                                 type="text"
                                 name="name"
                                 value={form.name}
                                 onChange={handleChange}
-                                required />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Email:
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Email:</label>
                             <input
                                 type="email"
                                 name="email"
                                 value={form.email}
                                 onChange={handleChange}
-                                required />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Set Password:
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Set Password:</label>
                             <input
                                 type="password"
                                 name="password"
                                 value={form.password}
                                 onChange={handleChange}
-                                required />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Confirm Password:
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Confirm Password:</label>
                             <input
                                 type="password"
                                 name="confirmPassword"
                                 value={form.confirmPassword}
                                 onChange={handleChange}
-                                required />
-                        </label>
-                    </div>
-                    <button type="submit">Create Account</button>
-                </form>
-                <p className="login-redirect">
+                                required
+                            />
+                        </div>
+                        <button type="submit" className="signup-submit-button">Create Account</button>
+                    </form>
+                    <p className="login-redirect">
                         Already have an account?{" "}
                         <Link to="/Login" className="login-link">Log in here</Link>
-                </p>
-            </>
+                    </p>
+                </>
             )}
         </div>
     );
 }
 
 export default Signup;
-
