@@ -1,30 +1,16 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-import RestaurantLists from './components/RestaurantList';
+// App.jsx
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import NavBar1 from './NavBar1';
+import Routes from './routes';
 
-
-function App() {
-const[restaurantData, setRestaurantData] = useState([])
-const [selectedRestaurant, setSelectedRestaurant] = useState(null);
-
-  useEffect(() => {
-    fetch('http://localhost:3001/restaurants')
-      .then(r => r.json())
-      .then(data => setRestaurantData(data));
-  }, []);
-
+const App = () => {
   return (
-    <div>
-     (
-         <RestaurantLists
-          restaurants={restaurantData}
-          onView={setSelectedRestaurant} 
-          selectedRestaurant={selectedRestaurant}
-          setSelectedRestaurant={setSelectedRestaurant}
-        />
-      )
-    </div>
+    <Router>
+      <NavBar1/>
+      <Routes />
+    </Router>
   );
-}
+};
 
-export default App;
+export default NavBar1;
