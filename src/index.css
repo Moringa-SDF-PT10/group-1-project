@@ -280,3 +280,11 @@ body{
 .search-bar button:hover {
   background-color: #038c57;
 }
+
+.restaurant-reviews {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 10px;
+  list-style: disc;
+  padding-left: 20px;
+}

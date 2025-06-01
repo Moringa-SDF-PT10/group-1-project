@@ -22,6 +22,23 @@ function RestaurantLists() {
     setFilteredRestaurants(results);
   };
 
+  const handleAddReview = (id, newReview) => {
+    setRestaurantData((prevData) =>
+      prevData.map((restaurant) =>
+        restaurant.id === id
+          ? { ...restaurant, reviews: [...restaurant.reviews, newReview] }
+          : restaurant
+      )
+    );
+    setFilteredRestaurants((prevData) =>
+      prevData.map((restaurant) =>
+        restaurant.id === id
+          ? { ...restaurant, reviews: [...restaurant.reviews, newReview] }
+          : restaurant
+      )
+    );
+  };
+
   return (
     <div className="restaurant-grid">
       <SearchBar onSearch={handleSearch} />
@@ -37,6 +54,7 @@ function RestaurantLists() {
           hours={restaurant.hours}
           reviews={restaurant.reviews}
           image={restaurant.image}
+          onAddReview={handleAddReview}
         />
       ))}
     </div>
@@ -44,3 +62,4 @@ function RestaurantLists() {
 }
 
 export default RestaurantLists;
+

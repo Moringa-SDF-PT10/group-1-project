@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-function Restaurant({ name, address, cuisine, ratings,hours, reviews, image, id}) {
+
+function Restaurant({ name, address, cuisine, ratings, hours, reviews, image, id, onAddReview }) {
+  const [newReview, setNewReview] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (newReview.trim()) {
+      onAddReview(id, newReview);
+      setNewReview("");
+    }
+  };
 
   return (
     <div className="restaurant-card">
@@ -15,12 +25,25 @@ function Restaurant({ name, address, cuisine, ratings,hours, reviews, image, id}
           <span className="restaurant-hours">{hours}</span>
         </div>
 
+        <ul className="restaurant-reviews">
+          {reviews.map((review, index) => (
+            <li key={index}>{review}</li>
+          ))}
+        </ul>
 
-        {reviews.map(reviews=>(
-            <li key={reviews} className="restaurant-reviews">{reviews}</li>
-        ))}
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={newReview}
+            onChange={(e) => setNewReview(e.target.value)}
+            placeholder="Add a review..."
+          />
+          <button type="submit" className="restaurant-button">
+            Submit Review
+          </button>
+        </form>
 
-         <Link to={`/Restaurants/${id}`} className="restaurant-button">
+        <Link to={`/Restaurants/${id}`} className="restaurant-button">
           View Restaurant
         </Link>
       </div>
