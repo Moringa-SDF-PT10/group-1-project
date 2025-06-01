@@ -1,18 +1,34 @@
 import Restaurant from './Restaurant';
 import { useState, useEffect } from 'react';
+import SearchBar from './SearchBar';
 
 function RestaurantLists() {
   const [restaurantData, setRestaurantData] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
   useEffect(() => {
     fetch('https://restaurant-api-hur7.onrender.com/restaurants')
-      .then(r => r.json())
-      .then(data => setRestaurantData(data));
+      .then((r) => r.json())
+      .then((data) => {
+        setRestaurantData(data);
+        setFilteredRestaurants(data);
+      });
   }, []);
 
+  const handleSearch = (query) => {
+    const results = restaurantData.filter((restaurant) =>
+      restaurant.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredRestaurants(results);
+  };
+
   return (
+    <>
+    <div>
+    <SearchBar onSearch={handleSearch} />
+    </div>
     <div className="restaurant-grid">
-      {restaurantData.map((restaurant) => (
+      {filteredRestaurants.map((restaurant) => (
         <Restaurant
           key={restaurant.id}
           id={restaurant.id}
@@ -27,6 +43,7 @@ function RestaurantLists() {
         />
       ))}
     </div>
+    </>
   );
 }
 

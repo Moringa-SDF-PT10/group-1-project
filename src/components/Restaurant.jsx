@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-function Restaurant({ name, address, cuisine, ratings,hours, reviews, image, id}) {
+function Restaurant({ name, address, cuisine, ratings,hours, reviews, image, id, onRemove}) {
 
-  return (
+ return (
     <div className="restaurant-card">
       <img src={image} alt={name} className="restaurant-image" />
       <div className="restaurant-content">
@@ -15,14 +15,23 @@ function Restaurant({ name, address, cuisine, ratings,hours, reviews, image, id}
           <span className="restaurant-hours">{hours}</span>
         </div>
 
-
-        {reviews.map(reviews=>(
-            <li key={reviews} className="restaurant-reviews">{reviews}</li>
+        {reviews.map((review, idx) => (
+          <li key={idx} className="restaurant-reviews">{review}</li>
         ))}
 
-         <Link to={`/Restaurants/${id}`} className="restaurant-button">
+        <Link to={`/Restaurants/${id}`} className="restaurant-button">
           View Restaurant
         </Link>
+
+        {onRemove && (
+          <button
+            onClick={onRemove}
+            className="remove-favorite-button"
+            type="button"
+          >
+            Remove from Favorites
+          </button>
+        )}
       </div>
     </div>
   );

@@ -6,7 +6,9 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import NavBar1 from "./components/NavBar1";
+import Favorites from "./Favorites";
 import ErrorPage from "./components/ErrorPage";
+import ProtectedRoute from "./ProtectedRoute";
 
 const routes = [
 
@@ -23,10 +25,12 @@ const routes = [
   {
     path: "/Restaurants",
     element: (
+       <ProtectedRoute>
         <>
     <NavBar1/>
     <RestaurantLists />,
     </>
+    </ProtectedRoute>
     ),
   },
   {
@@ -59,11 +63,25 @@ const routes = [
   {
     path: "/Profile",
     element: (
+       <ProtectedRoute>
         <>
     <NavBar1/>
     <Profile />
-    </>),
+    </>
+      </ProtectedRoute>
+    ),
   },
+  {
+  path: "/favorites",
+  element: (
+    <ProtectedRoute>
+    <>
+      <NavBar1 />
+      <Favorites />
+    </>
+    </ProtectedRoute>
+  ),
+}
 ];
 
 export default routes;
