@@ -1,12 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-function Restaurant({ name, address, cuisine, ratings,hours, reviews, image, id}) {
+import Favourite from './FavouriteList';
+function Restaurant({ name, address, cuisine, ratings,hours, reviews, image, id,isFavourite,onToggleFavourite}) {
 
   return (
     <div className="restaurant-card">
       <img src={image} alt={name} className="restaurant-image" />
       <div className="restaurant-content">
         <h3 className="restaurant-name">{name}</h3>
+         <div className="favourite-button-container">
+          <Favourite isFavourite={isFavourite} onToggle={onToggleFavourite} />
+        </div>
         <p className="restaurant-address">{address}</p>
         <p className="restaurant-cuisine">{cuisine}</p>
 
