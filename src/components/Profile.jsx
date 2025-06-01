@@ -4,7 +4,7 @@ import './Profile.css';
 
 const Profile = () => {
   const navigate = useNavigate();
-  
+
   const [profile, setProfile] = useState({
     name: '',
     phone: '',
@@ -31,12 +31,12 @@ const Profile = () => {
   ];
 
   const dietaryOptions = [
-    'Vegetarian', 'Vegan', 'Gluten-Free', 
+    'Vegetarian', 'Vegan', 'Gluten-Free',
     'Keto', 'Paleo', 'Halal', 'Kosher'
   ];
 
   const commonAllergies = [
-    'Dairy', 'Nuts', 'Shellfish', 
+    'Dairy', 'Nuts', 'Shellfish',
     'Eggs', 'Soy', 'Wheat', 'Fish'
   ];
 
@@ -81,7 +81,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log('Profile saved:', profile);
@@ -111,13 +111,13 @@ const Profile = () => {
       </div>
 
       <div className="profile-tabs">
-        <button 
+        <button
           className={activeTab === 'basic' ? 'active' : ''}
           onClick={() => setActiveTab('basic')}
         >
           Basic Info
         </button>
-        <button 
+        <button
           className={activeTab === 'preferences' ? 'active' : ''}
           onClick={() => setActiveTab('preferences')}
         >
@@ -135,7 +135,7 @@ const Profile = () => {
                   <button
                     key={label}
                     type="button"
-                    className={avatar-option ${profile.avatar === emoji ? 'selected' : ''}}
+                    className={`avatar-option ${profile.avatar === emoji ? 'selected' : ''}`}
                     onClick={() => handleAvatarSelect(emoji)}
                     aria-label={label}
                   >
@@ -197,7 +197,7 @@ const Profile = () => {
                   <button
                     key={option}
                     type="button"
-                    className={preference-option ${profile.dietaryPreferences.includes(option) ? 'selected' : ''}}
+                    className={`preference-option ${profile.dietaryPreferences.includes(option) ? 'selected' : ''}`}
                     onClick={() => handlePreferenceToggle(option)}
                   >
                     {option}
@@ -213,7 +213,7 @@ const Profile = () => {
                   <button
                     key={allergy}
                     type="button"
-                    className={preference-option ${profile.allergies.includes(allergy) ? 'selected' : ''}}
+                    className={`preference-option ${profile.allergies.includes(allergy) ? 'selected' : ''}`}
                     onClick={() => handleAllergyToggle(allergy)}
                   >
                     {allergy}
@@ -229,7 +229,7 @@ const Profile = () => {
                   <button
                     key={location}
                     type="button"
-                    className={preference-option ${profile.favoriteLocations.includes(location) ? 'selected' : ''}}
+                    className={`preference-option ${profile.favoriteLocations.includes(location) ? 'selected' : ''}`}
                     onClick={() => handleLocationToggle(location)}
                   >
                     {location}
@@ -250,8 +250,8 @@ const Profile = () => {
                 {profile.bio && <p className="bio-preview">{profile.bio}</p>}
               </div>
             </div>
-            
-            {(profile.dietaryPreferences.length > 0 || 
+
+            {(profile.dietaryPreferences.length > 0 ||
               profile.allergies.length > 0 ||
               profile.favoriteLocations.length > 0) && (
               <div className="preview-details">
@@ -276,7 +276,7 @@ const Profile = () => {
                         <small>• Try Lucca for Italian, Seven Seafood & Grill's or Sankara for rooftop dining</small>
                       )}
                       {profile.favoriteLocations.includes('Dagoretti Rd') && (
-                        <small>• Check out  La Cascina </small>
+                        <small>• Check out La Cascina </small>
                       )}
                       {profile.favoriteLocations.includes('Mombasa Rd') && (
                         <small>• Try Big Five Restaurant & Bar </small>
@@ -299,9 +299,9 @@ const Profile = () => {
         </div>
       </div>
 
-      <button 
-        type="submit" 
-        className="save-button" 
+      <button
+        type="submit"
+        className="save-button"
         onClick={handleSubmit}
         disabled={isSubmitting}
       >
