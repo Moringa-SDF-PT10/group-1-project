@@ -1,3 +1,4 @@
+
 import { NavLink } from "react-router-dom";
 
 function NavBar1() {
@@ -20,3 +21,4 @@ function NavBar1() {
 }
 
 export default NavBar1;
+
