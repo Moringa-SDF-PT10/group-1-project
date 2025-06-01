@@ -15,7 +15,7 @@ function Login() {
         // Handle login logic here
         alert(`Logging in with ${email}`);
          try {
-          const res = await fetch('http://localhost:5173/Login', {
+          const res = await fetch('http://localhost:3001/Login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password }),

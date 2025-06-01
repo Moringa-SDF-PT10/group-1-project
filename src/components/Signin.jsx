@@ -23,7 +23,7 @@ function Signin() {
             return;
         }
         try {
-            const res = await fetch('http://localhost:5173/Signin', {
+            const res = await fetch('http://localhost:3001/Signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: form.email, password: form.password }),
