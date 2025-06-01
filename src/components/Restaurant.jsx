@@ -15,6 +15,7 @@ function Restaurant({ name, address, cuisine, ratings,hours, reviews, image, id}
           <span className="restaurant-hours">{hours}</span>
         </div>
 
+
         {reviews.map(reviews=>(
             <li key={reviews} className="restaurant-reviews">{reviews}</li>
         ))}

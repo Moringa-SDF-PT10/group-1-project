@@ -9,18 +9,38 @@ body {
   font-family: 'Poppins', sans-serif;
   background-color: #f9f9f9;
   color: #333;
-  line-height: 1.6;
+}
+.navbar {
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-a {
+.logo a {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #2563eb;
   text-decoration: none;
-  color: inherit;
 }
 
-ul {
-  list-style-type: none;
+.nav-links a {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: #374151;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
-button {
-  cursor: pointer;
+.nav-links a:hover {
+  color: #2563eb;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
 }

@@ -1,8 +1,8 @@
 // routes.jsx
 import Home from './components/Home';
-import Profile from './components/Profile';
-import Login from './components/Login';
-import SignUp from './components/Sign-Up';
+// import Profile from './components/Profile';
+// import Login from './components/Login';
+// import SignUp from './components/Sign-Up';
 import RestaurantList from './components/RestaurantList';
 import RestaurantDetails from './components/RestaurantDetails';
 import Layout from './components/Layout';
