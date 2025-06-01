@@ -1,10 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Profile.css';
 
 const Profile = () => {
   const navigate = useNavigate();
-  
+
   const [profile, setProfile] = useState({
     name: '',
     email: '',
@@ -21,7 +20,7 @@ const Profile = () => {
     { emoji: '👨‍🦳', label: 'Older man' },
     { emoji: '👩‍🦰', label: 'Red-haired woman' }
   ];
-  
+
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -56,19 +55,19 @@ const Profile = () => {
 
   const handleAddRestaurant = () => {
     if (!selectedRestaurant) return;
-    
+
     const restaurant = restaurants.find(r => r.id === Number(selectedRestaurant));
     if (
         !restaurant ||
         profile.favoriteRestaurants.some(r => r.id === Number(selectedRestaurant))
       )  return;
-    
+
     setProfile(prev => ({
       ...prev,
       favoriteRestaurants: [...prev.favoriteRestaurants, restaurant],
       ratings: { ...prev.ratings, [selectedRestaurant]: 5 } // Default 3 stars
     }));
-    
+
     setSelectedRestaurant('');
   };
 
@@ -92,7 +91,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log('Profile saved:', profile);
@@ -115,7 +114,7 @@ const Profile = () => {
       <div className="profile-content">
         <form onSubmit={handleSubmit} className="profile-form">
           <h1 className="form-title">Create Your Profile</h1>
-          
+
           <div className="avatar-section">
             <h3 className="section-title">Select Avatar</h3>
             <div className="avatar-grid">
@@ -215,7 +214,7 @@ const Profile = () => {
                 <p>{profile.phone}</p>
               </div>
             </div>
-            
+
             {profile.favoriteRestaurants.length > 0 && (
               <div className="favorites-section">
                 <h4>Your Favorites</h4>
@@ -224,9 +223,9 @@ const Profile = () => {
                     <div key={restaurant.id} className="restaurant-card">
                       <div className="restaurant-image-container">
                         {restaurant.image ? (
-                          <img 
-                            src={restaurant.image} 
-                            alt={restaurant.name} 
+                          <img
+                            src={restaurant.image}
+                            alt={restaurant.name}
                             className="restaurant-image"
                           />
                         ) : (

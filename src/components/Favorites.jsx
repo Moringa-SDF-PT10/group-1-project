@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Restaurant from "./components/Restaurant";
+import Restaurant from "./Restaurant";
 
 function Favorites() {
   const [favorites, setFavorites] = useState([]);
