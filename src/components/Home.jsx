@@ -3,8 +3,8 @@ import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 function Home(){
   return (
     <div className="homepage">
-      <section className="hero">
-        <div className="hero-text">
+      <section className="home">
+        <div className="home-text">
           <h1>Discover Nairobi's Best Eateries</h1>
           <p>
             Explore top-rated restaurants, local favorites, and hidden gems.
@@ -20,7 +20,7 @@ function Home(){
             <FaInstagram />
           </div>
         </div>
-        <div className="hero-image">
+        <div className="home-image">
           <img src="src/assets/assets/Homepage.png" alt="homepage" />
         </div>
       </section>
