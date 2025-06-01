@@ -1,3 +1,4 @@
+import Restaurant from './Restaurant';
 import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 

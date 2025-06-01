@@ -6,7 +6,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import NavBar1 from "./components/NavBar1";
-import Favorites from "./components/Favorites"
+import Favorites from "./components/Favorites";
 import ErrorPage from "./components/ErrorPage";
 import ProtectedRoute from "./ProtectedRoute";
 
