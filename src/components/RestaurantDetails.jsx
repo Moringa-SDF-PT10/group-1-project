@@ -36,7 +36,7 @@ function RestaurantDetail() {
       <p><strong>Rating:</strong> {restaurant.rating} ⭐</p>
       <p><strong>Hours:</strong> {restaurant.hours}</p>
 
-      <button onClick={handleAddToFavorites} className="add-favorite-btn">❤ Add to Favorites</button>
+      <button onClick={handleAddToFavorites} className="add-favorite-btn">❤️ Add to Favorites</button>
 
       <h3>Menu</h3>
       <div className="menu-cards-container">

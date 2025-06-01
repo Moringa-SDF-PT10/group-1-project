@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Profile.css';
@@ -269,3 +268,4 @@ const Profile = () => {
 };
 
 export default Profile;
+
