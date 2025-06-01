@@ -1,25 +1,46 @@
-import React, { useState } from "react";
+import Restaurant from './Restaurant';
+import { useState, useEffect } from 'react';
+import SearchBar from './SearchBar';
 
-function SearchBar({ onSearch }) {
-  const [query, setQuery] = useState("");
+function RestaurantLists() {
+  const [restaurantData, setRestaurantData] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
-  const handleSearch = () => {
-    if (onSearch) {
-      onSearch(query);
-    }
+  useEffect(() => {
+    fetch('https://restaurant-api-hur7.onrender.com/restaurants')
+      .then((r) => r.json())
+      .then((data) => {
+        setRestaurantData(data);
+        setFilteredRestaurants(data);
+      });
+  }, []);
+
+  const handleSearch = (query) => {
+    const results = restaurantData.filter((restaurant) =>
+      restaurant.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredRestaurants(results);
   };
 
   return (
-    <div className="search-bar">
-      <input
-        type="text"
-        placeholder="Search for a restaurant..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button onClick={handleSearch}>Search</button>
+    <div className="restaurant-grid">
+      <SearchBar onSearch={handleSearch} />
+      {filteredRestaurants.map((restaurant) => (
+        <Restaurant
+          key={restaurant.id}
+          id={restaurant.id}
+          name={restaurant.name}
+          address={restaurant.address}
+          cuisine={restaurant.cuisine}
+          ratings={restaurant.ratings}
+          menu={restaurant.menu}
+          hours={restaurant.hours}
+          reviews={restaurant.reviews}
+          image={restaurant.image}
+        />
+      ))}
     </div>
   );
 }
 
-export default SearchBar;
+export default RestaurantLists;
