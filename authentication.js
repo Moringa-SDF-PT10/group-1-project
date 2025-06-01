@@ -57,7 +57,10 @@ app.get('/profile', async (req, res) => {
     res.status(401).json({ error: 'Invalid token' });
   }
 });
-
 mongoose.connect(process.env.MONGODB_URI)
-  .then(() => app.listen(3001, () => console.log('Server started')))
+  .then(() => {
+    const PORT = process.env.PORT || 3001;
+    app.listen(PORT, () => console.log(`✅ Server started on port ${PORT}`));
+  })
   .catch(err => console.error(err));
+
