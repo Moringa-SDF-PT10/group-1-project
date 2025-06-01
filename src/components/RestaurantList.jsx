@@ -1,4 +1,3 @@
-import Restaurant from './Restaurant';
 import { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 
@@ -48,3 +47,4 @@ function RestaurantLists() {
 }
 
 export default RestaurantLists;
+

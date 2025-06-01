@@ -6,7 +6,7 @@ import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import NavBar1 from "./components/NavBar1";
-import Favorites from "./Favorites";
+import Favorites from "./components/Favorites"
 import ErrorPage from "./components/ErrorPage";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -82,14 +82,14 @@ const routes = [
     </ProtectedRoute>
   ),
 },
-{
-  path :"/gallery",
-  element:<FoodGallery/>
-  },
-  {
-    path :"/support",
-      element:<ContactHelp/>
-  }
+// {
+//   path :'/gallery',
+//   element:<FoodGallery/>
+//   },
+//   {
+//     path :'/support',
+//       element:<ContactHelp/>
+//   }
 ];
 
 export default routes;
