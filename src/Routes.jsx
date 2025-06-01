@@ -81,7 +81,15 @@ const routes = [
     </>
     </ProtectedRoute>
   ),
-}
+},
+{
+  path :"/gallery",
+  element:<FoodGallery/>
+  },
+  {
+    path :"/support",
+      element:<ContactHelp/>
+  }
 ];
 
 export default routes;
