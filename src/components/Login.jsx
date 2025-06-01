@@ -12,7 +12,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("https://auth-backend-s5py.onrender.com", {
+      const res = await fetch("https://auth-backend-s5py.onrender.com/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

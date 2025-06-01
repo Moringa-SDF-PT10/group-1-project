@@ -58,6 +58,6 @@ app.get('/profile', async (req, res) => {
   }
 });
 
-mongoose.connect('mongodb://localhost:27017/authDemo')
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => app.listen(3001, () => console.log('Server started')))
   .catch(err => console.error(err));

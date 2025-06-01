@@ -22,7 +22,7 @@ function Signup() {
             return;
         }
         try {
-            const res = await fetch("http://localhost:3001/Signup", {
+            const res = await fetch("https://auth-backend-s5py.onrender.com/Signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
