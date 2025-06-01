@@ -1,69 +1,31 @@
-import { createBrowserRouter } from "react-router-dom";
-import Home from "./components/Home";
-import RestaurantLists from "./components/RestaurantList";
+// routes.jsx
+import Home from './components/Home';
+// import Profile from './components/Profile';
+// import Login from './components/Login';
+// import SignUp from './components/Sign-Up';
+import RestaurantList from './components/RestaurantList';
 import RestaurantDetails from './components/RestaurantDetails';
-import Signup from "./components/Signup";
-import Login from "./components/Login";
-import Profile from "./components/Profile";
-import NavBar1 from "./components/NavBar1";
-import ErrorPage from "./components/ErrorPage";
+import Layout from './components/Layout';
+import FoodGallery from './components/FoodGallery';
+import ContactHelp from './components/ContactHelp';
+import Favorites from './components/FavouriteList';
 
-const routes = [
-
+const Routes = [
   {
-    path: "/",
-    element: (
-      <>
-        <NavBar1 />
-        <Home />
-      </>
-    ),
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/Restaurants",
-    element: (
-        <>
-    <NavBar1/>
-    <RestaurantLists />,
-    </>
-    ),
-  },
-  {
-    path: "/Restaurants/:id",
-    element: (
-        <>
-    <NavBar1/>
-    <RestaurantDetails />,
-    </>
-    ),
-  },
-  {
-    path: "/Login",
-    element: (
-    <>
-    <NavBar1/>
-    <Login />
-    </>
-    ),
-
-  },
-  {
-    path: "/Signup",
-    element: (
-    <>
-    <NavBar1/>
-    <Signup />
-    </>),
-  },
-  {
-    path: "/Profile",
-    element: (
-        <>
-    <NavBar1/>
-    <Profile />
-    </>),
+    path: '/',
+    element: <Layout />,
+    children: [
+      { path: '/', element: <Home /> },
+      { path: '/restaurants', element: <RestaurantList /> },
+      { path: '/restaurants/:id', element: <RestaurantDetails /> },
+      // { path: '/profile', element: <Profile /> },
+      // { path: '/login', element: <Login /> },
+      // { path: '/signin', element: <SignUp /> },
+      {path: '/favorites' , element:<Favorites/>},
+      {path :'/gallery', element:<FoodGallery/>},
+      {path :'/support', element:<ContactHelp/>}
+    ],
   },
 ];
 
-export default routes;
+export default Routes;

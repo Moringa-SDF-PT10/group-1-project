@@ -1,11 +1,11 @@
-import Restaurant from './Restaurant';
 import { useState, useEffect } from 'react';
+import Restaurant from './Restaurant';
 import SearchBar from './SearchBar';
 
 function RestaurantLists() {
   const [restaurantData, setRestaurantData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-
+  
   useEffect(() => {
     fetch('https://restaurant-api-hur7.onrender.com/restaurants')
       .then(r => r.json())
