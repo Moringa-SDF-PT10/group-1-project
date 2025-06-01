@@ -1,47 +1,46 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Profile.css';
+
 const Profile = () => {
   const navigate = useNavigate();
-
+  
   const [profile, setProfile] = useState({
     name: '',
-    email: '',
     phone: '',
+    bio: '',
     avatar: '👤',
-    favoriteRestaurants: [],
-    ratings: {}
+    dietaryPreferences: [],
+    allergies: [],
+    favoriteLocations: []
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState('basic');
 
   const avatars = [
     { emoji: '👨', label: 'Man' },
     { emoji: '👩', label: 'Woman' },
     { emoji: '🧔', label: 'Bearded person' },
     { emoji: '👨‍🦳', label: 'Older man' },
-    { emoji: '👩‍🦰', label: 'Red-haired woman' }
+    { emoji: '👩‍🦰', label: 'Red-haired woman' },
+    { emoji: '🦸', label: 'Superhero' },
+    { emoji: '🧑‍🍳', label: 'Chef' },
+    { emoji: '🧝', label: 'Elf' }
   ];
 
-  const [restaurants, setRestaurants] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selectedRestaurant, setSelectedRestaurant] = useState('');
+  const dietaryOptions = [
+    'Vegetarian', 'Vegan', 'Gluten-Free', 
+    'Keto', 'Paleo', 'Halal', 'Kosher'
+  ];
 
-  const fetchRestaurants = useCallback(async () => {
-    try {
-      const response = await fetch('https://restaurant-api-hur7.onrender.com/restaurants');
-      if (!response.ok) throw new Error('Failed to fetch restaurants');
-      const data = await response.json();
-      setRestaurants(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const commonAllergies = [
+    'Dairy', 'Nuts', 'Shellfish', 
+    'Eggs', 'Soy', 'Wheat', 'Fish'
+  ];
 
-  useEffect(() => {
-    fetchRestaurants();
-  }, [fetchRestaurants]);
+  const locations = ['Westlands', 'Dagoretti Rd', 'Mombasa Rd','Karen', 'Hurlingham', 'Koinange st'];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,49 +51,41 @@ const Profile = () => {
     setProfile(prev => ({ ...prev, avatar }));
   };
 
-  const handleAddRestaurant = () => {
-    if (!selectedRestaurant) return;
-
-    const restaurant = restaurants.find(r => r.id === Number(selectedRestaurant));
-    if (
-        !restaurant ||
-        profile.favoriteRestaurants.some(r => r.id === Number(selectedRestaurant))
-      )  return;
-
+  const handlePreferenceToggle = (preference) => {
     setProfile(prev => ({
       ...prev,
-      favoriteRestaurants: [...prev.favoriteRestaurants, restaurant],
-      ratings: { ...prev.ratings, [selectedRestaurant]: 5 } // Default 3 stars
-    }));
-
-    setSelectedRestaurant('');
-  };
-
-  const handleRatingChange = (restaurantId, rating) => {
-    setProfile(prev => ({
-      ...prev,
-      ratings: { ...prev.ratings, [restaurantId]: rating }
+      dietaryPreferences: prev.dietaryPreferences.includes(preference)
+        ? prev.dietaryPreferences.filter(p => p !== preference)
+        : [...prev.dietaryPreferences, preference]
     }));
   };
 
-  const handleRemoveRestaurant = (restaurantId) => {
+  const handleAllergyToggle = (allergy) => {
     setProfile(prev => ({
       ...prev,
-      favoriteRestaurants: prev.favoriteRestaurants.filter(r => r.id !== restaurantId),
-      ratings: Object.fromEntries(
-        Object.entries(prev.ratings).filter(([id]) => id !== restaurantId)
-      )
+      allergies: prev.allergies.includes(allergy)
+        ? prev.allergies.filter(a => a !== allergy)
+        : [...prev.allergies, allergy]
+    }));
+  };
+
+  const handleLocationToggle = (location) => {
+    setProfile(prev => ({
+      ...prev,
+      favoriteLocations: prev.favoriteLocations.includes(location)
+        ? prev.favoriteLocations.filter(l => l !== location)
+        : [...prev.favoriteLocations, location]
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+    
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log('Profile saved:', profile);
-      alert('Profile saved successfully!');
+      navigate('/profile-success');
     } catch (err) {
       setError('Failed to save profile');
     } finally {
@@ -102,168 +93,228 @@ const Profile = () => {
     }
   };
 
-  if (error) return <div className="error-state">{error}</div>;
+  if (error) return (
+    <div className="error-state">
+      <h3>Oops!</h3>
+      <p>{error}</p>
+      <button onClick={() => setError(null)}>Try Again</button>
+    </div>
+  );
 
   return (
     <div className="profile-container">
-      <button onClick={() => navigate('/')} className="back-button">
-        ← Back to Home
-      </button>
+      <div className="profile-header">
+        <button onClick={() => navigate('/')} className="back-button">
+          ← Back to Home
+        </button>
+        <h1>Your Profile</h1>
+      </div>
+
+      <div className="profile-tabs">
+        <button 
+          className={activeTab === 'basic' ? 'active' : ''}
+          onClick={() => setActiveTab('basic')}
+        >
+          Basic Info
+        </button>
+        <button 
+          className={activeTab === 'preferences' ? 'active' : ''}
+          onClick={() => setActiveTab('preferences')}
+        >
+          Preferences
+        </button>
+      </div>
 
       <div className="profile-content">
-        <form onSubmit={handleSubmit} className="profile-form">
-          <h1 className="form-title">Create Your Profile</h1>
-
-          <div className="avatar-section">
-            <h3 className="section-title">Select Avatar</h3>
-            <div className="avatar-grid">
-              {avatars.map(({ emoji, label }) => (
-                <button
-                  key={label}
-                  type="button"
-                  className={`avatar-option ${profile.avatar === emoji ? 'selected' : ''}`}
-                  onClick={() => handleAvatarSelect(emoji)}
-                  aria-label={label}
-                >
-                  {emoji}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="name">Full Name</label>
-            <input
-              id="name"
-              type="text"
-              name="name"
-              value={profile.name}
-              onChange={handleInputChange}
-              placeholder="Your name"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              value={profile.email}
-              onChange={handleInputChange}
-              placeholder="your@email.com"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="phone">Phone Number</label>
-            <input
-              id="phone"
-              type="tel"
-              name="phone"
-              value={profile.phone}
-              onChange={handleInputChange}
-              placeholder="+1234567890"
-              pattern="[+][0-9]{11,14}"
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="restaurant-select">Add Favorite Restaurant</label>
-            <div className="restaurant-select-container">
-              <select
-                id="restaurant-select"
-                value={selectedRestaurant}
-                onChange={(e) => setSelectedRestaurant(e.target.value)}
-                disabled={loading}
-              >
-                <option value="">Select a restaurant</option>
-                {restaurants.map(restaurant => (
-                  <option key={restaurant.id} value={restaurant.id}>
-                    {restaurant.name}
-                  </option>
+        {activeTab === 'basic' && (
+          <form onSubmit={handleSubmit} className="profile-form">
+            <div className="avatar-section">
+              <h3>Select Your Avatar</h3>
+              <div className="avatar-grid">
+                {avatars.map(({ emoji, label }) => (
+                  <button
+                    key={label}
+                    type="button"
+                    className={avatar-option ${profile.avatar === emoji ? 'selected' : ''}}
+                    onClick={() => handleAvatarSelect(emoji)}
+                    aria-label={label}
+                  >
+                    {emoji}
+                  </button>
                 ))}
-              </select>
-              <button
-                type="button"
-                onClick={handleAddRestaurant}
-                className="add-button"
-                disabled={!selectedRestaurant}
-              >
-                Add
-              </button>
-            </div>
-          </div>
-
-          <button type="submit" className="save-button" disabled={isSubmitting}>
-            {isSubmitting ? 'Saving...' : 'Save Profile'}
-          </button>
-        </form>
-
-        {profile.name && (
-          <div className="profile-preview">
-            <div className="preview-header">
-              <span className="avatar-large">{profile.avatar}</span>
-              <div>
-                <h3>{profile.name}</h3>
-                <p>{profile.email}</p>
-                <p>{profile.phone}</p>
               </div>
             </div>
 
-            {profile.favoriteRestaurants.length > 0 && (
-              <div className="favorites-section">
-                <h4>Your Favorites</h4>
-                <div className="favorites-grid">
-                  {profile.favoriteRestaurants.map(restaurant => (
-                    <div key={restaurant.id} className="restaurant-card">
-                      <div className="restaurant-image-container">
-                        {restaurant.image ? (
-                          <img
-                            src={restaurant.image}
-                            alt={restaurant.name}
-                            className="restaurant-image"
-                          />
-                        ) : (
-                          <div className="image-placeholder">No Image</div>
-                        )}
-                      </div>
-                      <div className="restaurant-info">
-                        <h5>{restaurant.name}</h5>
-                        <p>{restaurant.cuisines?.join(', ')}</p>
-                        <div className="rating-section">
-                          {[1, 2, 3, 4, 5].map(star => (
-                            <span
-                              key={star}
-                              className={`star ${star <= (profile.ratings[restaurant.id] || 0) ? 'filled' : ''}`}
-                              onClick={() => handleRatingChange(restaurant.id, star)}
-                            >
-                              ★
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <button
-                        onClick={() => handleRemoveRestaurant(restaurant.id)}
-                        className="remove-button"
-                        aria-label={`Remove ${restaurant.name}`}
-                      >
-                        ×
-                      </button>
+            <div className="form-group">
+              <label htmlFor="name">Full Name</label>
+              <input
+                id="name"
+                type="text"
+                name="name"
+                value={profile.name}
+                onChange={handleInputChange}
+                placeholder="Your name"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="phone">Phone Number</label>
+              <input
+                id="phone"
+                type="tel"
+                name="phone"
+                value={profile.phone}
+                onChange={handleInputChange}
+                placeholder="+254720078767"
+                pattern="[+][0-9]{11,14}"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="bio">Bio (Optional)</label>
+              <textarea
+                id="bio"
+                name="bio"
+                value={profile.bio}
+                onChange={handleInputChange}
+                placeholder="Tell us a bit about yourself..."
+                rows="3"
+                maxLength="200"
+              />
+              <small className="char-count">{profile.bio.length}/200 characters</small>
+            </div>
+          </form>
+        )}
+
+        {activeTab === 'preferences' && (
+          <div className="preferences-section">
+            <div className="preference-group">
+              <h3>Dietary Preferences</h3>
+              <div className="preference-grid">
+                {dietaryOptions.map(option => (
+                  <button
+                    key={option}
+                    type="button"
+                    className={preference-option ${profile.dietaryPreferences.includes(option) ? 'selected' : ''}}
+                    onClick={() => handlePreferenceToggle(option)}
+                  >
+                    {option}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="preference-group">
+              <h3>Allergies</h3>
+              <div className="preference-grid">
+                {commonAllergies.map(allergy => (
+                  <button
+                    key={allergy}
+                    type="button"
+                    className={preference-option ${profile.allergies.includes(allergy) ? 'selected' : ''}}
+                    onClick={() => handleAllergyToggle(allergy)}
+                  >
+                    {allergy}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="preference-group">
+              <h3>Favorite Dining Locations</h3>
+              <div className="preference-grid">
+                {locations.map(location => (
+                  <button
+                    key={location}
+                    type="button"
+                    className={preference-option ${profile.favoriteLocations.includes(location) ? 'selected' : ''}}
+                    onClick={() => handleLocationToggle(location)}
+                  >
+                    {location}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="profile-preview">
+          <div className="preview-card">
+            <div className="preview-header">
+              <span className="avatar-large">{profile.avatar}</span>
+              <div className="preview-info">
+                <h3>{profile.name || 'Your Name'}</h3>
+                <p>{profile.phone || '+1234567890'}</p>
+                {profile.bio && <p className="bio-preview">{profile.bio}</p>}
+              </div>
+            </div>
+            
+            {(profile.dietaryPreferences.length > 0 || 
+              profile.allergies.length > 0 ||
+              profile.favoriteLocations.length > 0) && (
+              <div className="preview-details">
+                {profile.dietaryPreferences.length > 0 && (
+                  <div className="detail-group">
+                    <h4>Dietary Preferences</h4>
+                    <p>{profile.dietaryPreferences.join(', ')}</p>
+                  </div>
+                )}
+                {profile.allergies.length > 0 && (
+                  <div className="detail-group">
+                    <h4>Allergies</h4>
+                    <p>{profile.allergies.join(', ')}</p>
+                  </div>
+                )}
+                {profile.favoriteLocations.length > 0 && (
+                  <div className="detail-group">
+                    <h4>Favorite Dining Areas</h4>
+                    <p>{profile.favoriteLocations.join(', ')}</p>
+                    <div className="location-tips">
+                      {profile.favoriteLocations.includes('Westlands') && (
+                        <small>• Try Lucca for Italian, Seven Seafood & Grill's or Sankara for rooftop dining</small>
+                      )}
+                      {profile.favoriteLocations.includes('Dagoretti Rd') && (
+                        <small>• Check out  La Cascina </small>
+                      )}
+                      {profile.favoriteLocations.includes('Mombasa Rd') && (
+                        <small>• Try Big Five Restaurant & Bar </small>
+                      )}
+                      {profile.favoriteLocations.includes('Karen') && (
+                        <small>• Check out Talisman's risotto or La Cascina's pasta</small>
+                      )}
+                      {profile.favoriteLocations.includes('Hurlingham') && (
+                        <small>• Habesha has amazing Ethiopian food</small>
+                      )}
+                      {profile.favoriteLocations.includes('Koinange st') && (
+                        <small>• CJ's has amazing African food</small>
+                      )}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
-        )}
+        </div>
       </div>
+
+      <button 
+        type="submit" 
+        className="save-button" 
+        onClick={handleSubmit}
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? (
+          <>
+            <span className="spinner"></span> Saving...
+          </>
+        ) : (
+          'Save Profile'
+        )}
+      </button>
     </div>
   );
 };
 
 export default Profile;
-
