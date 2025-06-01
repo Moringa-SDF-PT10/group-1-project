@@ -4,7 +4,17 @@ function SearchBar({ onSearch }) {
   const [query, setQuery] = useState("");
 
   const handleSearch = () => {
-    onSearch(query);
+    if (onSearch) {
+      onSearch(query);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const newQuery = e.target.value;
+    setQuery(newQuery);
+    if (onSearch) {
+      onSearch(newQuery); // Trigger search on input change
+    }
   };
 
   return (
@@ -13,7 +23,7 @@ function SearchBar({ onSearch }) {
         type="text"
         placeholder="Search for a restaurant..."
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={handleInputChange}
       />
       <button onClick={handleSearch}>Search</button>
     </div>
