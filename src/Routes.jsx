@@ -8,7 +8,7 @@ import RestaurantDetails from './components/RestaurantDetails';
 import Layout from './components/Layout';
 import FoodGallery from './components/FoodGallery';
 import ContactHelp from './components/ContactHelp';
-import Favorites from './components/FavouriteList';
+import Favorites from './components/Favorites';
 
 const Routes = [
   {

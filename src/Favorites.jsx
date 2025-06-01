@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Restaurant from "./Restaurant";
+import Restaurant from "./components/Restaurant";
 
 function Favorites() {
   const [favorites, setFavorites] = useState([]);
@@ -32,4 +32,4 @@ function Favorites() {
   );
 }
 
-export default Favorites;
+export default Favorites
