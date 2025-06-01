@@ -13,6 +13,17 @@ function RestaurantDetail() {
       .then((data) => setRestaurant(data));
   }, [id]);
 
+  const handleAddToFavorites = () => {
+    const existing = JSON.parse(localStorage.getItem("favorites")) || [];
+    const isAlreadyFavorited = existing.some((r) => r.id === restaurant.id);
+    if (!isAlreadyFavorited) {
+      localStorage.setItem("favorites", JSON.stringify([...existing, restaurant]));
+      alert("Added to favorites!");
+    } else {
+      alert("Already in favorites");
+    }
+  };
+
   if (!restaurant) return <p>Loading...</p>;
 
   return (
@@ -24,6 +35,8 @@ function RestaurantDetail() {
       <p><strong>Cuisine:</strong> {restaurant.cuisines.join(", ")}</p>
       <p><strong>Rating:</strong> {restaurant.rating} ⭐</p>
       <p><strong>Hours:</strong> {restaurant.hours}</p>
+
+      <button onClick={handleAddToFavorites} className="add-favorite-btn">❤ Add to Favorites</button>
 
       <h3>Menu</h3>
       <div className="menu-cards-container">

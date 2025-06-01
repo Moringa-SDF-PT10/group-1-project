@@ -9,6 +9,7 @@ function NavBar1() {
       {/* <NavLink to="/Profile" className="navbar-link">Profile</NavLink>
       <NavLink to="/Signin" className="navbar-link">Sign In</NavLink>
       <NavLink to="/Login" className="navbar-link">Log In</NavLink> */}
+      <NavLink to='/favorites' className='navbar-link'>Favorites</NavLink>
       <NavLink to="/gallery" className="navbar-link">Gallery</NavLink>
       <NavLink to='/support' className='navbar-link'>Contact & Help</NavLink>
     </nav>

@@ -6,7 +6,7 @@ import Restaurant from './Restaurant';
 function RestaurantLists() {
   const [restaurantData, setRestaurantData] = useState([]);
   const [favourites, setFavourites] = useState([]);
-  const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
+  // const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
 
   useEffect(() => {
     fetch('https://restaurant-api-hur7.onrender.com/restaurants')
@@ -20,18 +20,18 @@ function RestaurantLists() {
     );
   };
 
-  const displayedRestaurants = showFavouritesOnly
-    ? restaurantData.filter((r) => favourites.includes(r.id))
-    : restaurantData;
+  // const displayedRestaurants = showFavouritesOnly
+  //   ? restaurantData.filter((r) => favourites.includes(r.id))
+  //   : restaurantData;
 
   return (
     <div>
-      <button onClick={() => setShowFavouritesOnly(!showFavouritesOnly)}>
+      {/* <button onClick={() => setShowFavouritesOnly(!showFavouritesOnly)}>
         {showFavouritesOnly ? "Show All Restaurants" : "Show Favourites Only"}
-      </button>
+      </button> */}
 
       <div className="restaurant-grid">
-        {displayedRestaurants.map((restaurant) => (
+        {restaurantData.map((restaurant) => (
           <div key={restaurant.id} className="restaurant-card">
            <Restaurant
             key={restaurant.id}
