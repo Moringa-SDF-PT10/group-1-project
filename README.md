@@ -6,7 +6,7 @@
 
 ## 🌐 Live Demo
 
- Click here to view the live app : [nairobibitez.netlify.app](#)
+ Click here to view the live app : [https://nairobibitez.netlify.app/](#)
 
 ## 🚀 Features
 
@@ -82,12 +82,12 @@ src/
 - Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/nairobi-bitez.git
+git clone https://github.com/Moringa-SDF-PT10/group-1-project.git
 ```
 - Change to the directory
 
 ```bash
-cd nairobi-bitez
+cd *folder name*
 ````
 
 - Install dependencies
