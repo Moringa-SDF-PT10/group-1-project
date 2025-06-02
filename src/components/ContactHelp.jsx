@@ -1,22 +1,68 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 function ContactHelp() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("form subbmitted");
+    setFormData({
+      name: '',
+      email: '',
+      message: ''
+    });
+  };
+
   return (
     <div className="page-container">
+      <button onClick={() => navigate(-1)} className="back-button">← Back</button>
       <h2>Contact & Help</h2>
 
       <section className="contact-section">
         <h3>Contact Us</h3>
         <p>Have questions or feedback? Send us a message:</p>
-        <form>
+        <form onSubmit={handleSubmit}>
           <label>
-            Name: <input type="text" name="name" required />
+            Name:
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
           </label>
           <label>
-            Email: <input type="email" name="email" required />
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
           </label>
           <label>
-            Message: <textarea name="message" rows="4" required />
+            Message:
+            <textarea
+              name="message"
+              rows="4"
+              value={formData.message}
+              onChange={handleChange}
+              required
+            />
           </label>
           <button type="submit">Send</button>
         </form>

@@ -7,6 +7,8 @@ import Login from "./components/Login";
 import Profile from "./components/Profile";
 import NavBar1 from "./components/NavBar1";
 import Favorites from "./components/Favorites";
+import ContactHelp from "./components/ContactHelp";
+import Trending from "./components/Trending";
 import ErrorPage from "./components/ErrorPage";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -72,6 +74,17 @@ const routes = [
     ),
   },
   {
+    path: "/trending",
+    element: (
+       <ProtectedRoute>
+        <>
+    <NavBar1/>
+    <Trending/>
+    </>
+      </ProtectedRoute>
+    ),
+  },
+  {
   path: "/favorites",
   element: (
     <ProtectedRoute>
@@ -86,10 +99,10 @@ const routes = [
 //   path :'/gallery',
 //   element:<FoodGallery/>
 //   },
-//   {
-//     path :'/support',
-//       element:<ContactHelp/>
-//   }
+  {
+    path :'/support',
+      element:<ContactHelp/>
+  }
 ];
 
 export default routes;

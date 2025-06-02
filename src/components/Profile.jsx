@@ -85,12 +85,18 @@ const Profile = () => {
     try {
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log('Profile saved:', profile);
-      navigate('/profile-success');
+      navigate('/');
     } catch (err) {
       setError('Failed to save profile');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   if (error) return (
@@ -104,10 +110,15 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <div className="profile-header">
-        <button onClick={() => navigate('/')} className="back-button">
-          ← Back to Home
-        </button>
-        <h1>Your Profile</h1>
+        <div className="header-controls">
+          <button onClick={() => navigate('/')} className="back-button">
+            ← Back to Home
+          </button>
+          <h1>Your Profile</h1>
+          <button onClick={handleLogout} className="logout-button">
+            🚪 Logout
+          </button>
+        </div>
       </div>
 
       <div className="profile-tabs">
