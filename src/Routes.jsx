@@ -9,6 +9,8 @@ import NavBar1 from "./components/NavBar1";
 import Favorites from "./components/Favorites";
 import ContactHelp from "./components/ContactHelp";
 import Trending from "./components/Trending";
+import FoodGallery from "./components/FoodGallery";
+import Reservation from "./components/Reservation";
 import ErrorPage from "./components/ErrorPage";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -34,6 +36,7 @@ const routes = [
     </>
     </ProtectedRoute>
     ),
+     errorElement: <ErrorPage />,
   },
   {
     path: "/Restaurants/:id",
@@ -43,6 +46,7 @@ const routes = [
     <RestaurantDetails />,
     </>
     ),
+     errorElement: <ErrorPage />,
   },
   {
     path: "/Login",
@@ -52,6 +56,7 @@ const routes = [
     <Login />
     </>
     ),
+     errorElement: <ErrorPage />,
 
   },
   {
@@ -60,7 +65,9 @@ const routes = [
     <>
     <NavBar1/>
     <Signup />
-    </>),
+    </>
+    ),
+     errorElement: <ErrorPage />,
   },
   {
     path: "/Profile",
@@ -72,6 +79,7 @@ const routes = [
     </>
       </ProtectedRoute>
     ),
+     errorElement: <ErrorPage />,
   },
   {
     path: "/trending",
@@ -83,6 +91,7 @@ const routes = [
     </>
       </ProtectedRoute>
     ),
+     errorElement: <ErrorPage />,
   },
   {
   path: "/favorites",
@@ -94,15 +103,39 @@ const routes = [
     </>
     </ProtectedRoute>
   ),
+   errorElement: <ErrorPage />,
 },
-// {
-//   path :'/gallery',
-//   element:<FoodGallery/>
-//   },
-  {
+{
+  path: "/gallery",
+  element: (
+    <>
+      <NavBar1 />
+      <FoodGallery/>
+    </>
+
+  ),
+   errorElement: <ErrorPage />,
+},
+{
+
     path :'/support',
-      element:<ContactHelp/>
-  }
+    element:(
+    <ContactHelp/>
+  ),
+       errorElement: <ErrorPage />,
+},
+{
+  path :'/reservation',
+  element: (
+    <ProtectedRoute>
+    <>
+      <NavBar1 />
+      <Reservation/>
+    </>
+    </ProtectedRoute>
+  ),
+   errorElement: <ErrorPage />,
+},
 ];
 
 export default routes;
