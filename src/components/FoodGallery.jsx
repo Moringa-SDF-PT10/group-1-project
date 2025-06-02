@@ -189,4 +189,4 @@ function FoodGallery() {
   );
 }
 
-// export default FoodGallery;
+export default FoodGallery;
