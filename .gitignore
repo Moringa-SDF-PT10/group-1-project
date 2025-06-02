@@ -1,4 +1,4 @@
-# Log files
+# Logs
 logs
 *.log
 npm-debug.log*
@@ -7,28 +7,29 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Dependency directory
+# Dependency directories
 node_modules/
 
-# Build output
+# Build outputs
 dist/
 dist-ssr/
 
-# Local environment settings
-*.local
+# Local environment variables
 .env
+*.local
 
-# Editor settings
+# IDEs and editors
 .vscode/
 !.vscode/extensions.json  # Allow team-shared extensions
 .idea/
-.DS_Store  # macOS system file
+.DS_Store                 # macOS system file
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
-*.sw?      # Vim swap files
+*.sw?                     # Vim swap files
 
 # Optional: OS-specific
-Thumbs.db  # Windows system file
+Thumbs.db                 # Windows system file
+
 
