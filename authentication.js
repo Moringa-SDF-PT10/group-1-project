@@ -59,7 +59,7 @@ app.get('/profile', async (req, res) => {
 });
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
-    const PORT = process.env.PORT || 3001;
+    const PORT = process.env.PORT || 1000;
     app.listen(PORT, () => console.log(`✅ Server started on port ${PORT}`));
   })
   .catch(err => console.error(err));
