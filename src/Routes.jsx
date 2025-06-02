@@ -1,31 +1,95 @@
-// routes.jsx
-import Home from './components/Home';
-// import Profile from './components/Profile';
-// import Login from './components/Login';
-// import SignUp from './components/Sign-Up';
-import RestaurantList from './components/RestaurantList';
+import { createBrowserRouter } from "react-router-dom";
+import Home from "./components/Home";
+import RestaurantLists from "./components/RestaurantList";
 import RestaurantDetails from './components/RestaurantDetails';
-import Layout from './components/Layout';
-import FoodGallery from './components/FoodGallery';
-import ContactHelp from './components/ContactHelp';
-import Favorites from './components/FavouriteList';
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Profile from "./components/Profile";
+import NavBar1 from "./components/NavBar1";
+import Favorites from "./components/Favorites";
+import ErrorPage from "./components/ErrorPage";
+import ProtectedRoute from "./ProtectedRoute";
 
-const Routes = [
+const routes = [
+
   {
-    path: '/',
-    element: <Layout />,
-    children: [
-      { path: '/', element: <Home /> },
-      { path: '/restaurants', element: <RestaurantList /> },
-      { path: '/restaurants/:id', element: <RestaurantDetails /> },
-      // { path: '/profile', element: <Profile /> },
-      // { path: '/login', element: <Login /> },
-      // { path: '/signin', element: <SignUp /> },
-      {path: '/favorites' , element:<Favorites/>},
-      {path :'/gallery', element:<FoodGallery/>},
-      {path :'/support', element:<ContactHelp/>}
-    ],
+    path: "/",
+    element: (
+      <>
+        <NavBar1 />
+        <Home />
+      </>
+    ),
+    errorElement: <ErrorPage />,
   },
+  {
+    path: "/Restaurants",
+    element: (
+       <ProtectedRoute>
+        <>
+    <NavBar1/>
+    <RestaurantLists />,
+    </>
+    </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/Restaurants/:id",
+    element: (
+        <>
+    <NavBar1/>
+    <RestaurantDetails />,
+    </>
+    ),
+  },
+  {
+    path: "/Login",
+    element: (
+    <>
+    <NavBar1/>
+    <Login />
+    </>
+    ),
+
+  },
+  {
+    path: "/Signup",
+    element: (
+    <>
+    <NavBar1/>
+    <Signup />
+    </>),
+  },
+  {
+    path: "/Profile",
+    element: (
+       <ProtectedRoute>
+        <>
+    <NavBar1/>
+    <Profile />
+    </>
+      </ProtectedRoute>
+    ),
+  },
+  {
+  path: "/favorites",
+  element: (
+    <ProtectedRoute>
+    <>
+      <NavBar1 />
+      <Favorites />
+    </>
+    </ProtectedRoute>
+  ),
+},
+// {
+//   path :'/gallery',
+//   element:<FoodGallery/>
+//   },
+//   {
+//     path :'/support',
+//       element:<ContactHelp/>
+//   }
 ];
 
-export default Routes;
+export default routes;

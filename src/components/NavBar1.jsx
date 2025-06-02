@@ -1,19 +1,24 @@
-import { NavLink } from "react-router-dom";
 
+import { NavLink } from "react-router-dom";
 
 function NavBar1() {
   return (
     <nav className="navbar-container">
-      <NavLink to="/" className="navbar-link">Home</NavLink>
-      <NavLink to="/Restaurants" className="navbar-link">Restaurants</NavLink>
-      {/* <NavLink to="/Profile" className="navbar-link">Profile</NavLink>
-      <NavLink to="/Signin" className="navbar-link">Sign In</NavLink>
-      <NavLink to="/Login" className="navbar-link">Log In</NavLink> */}
-      <NavLink to='/favorites' className='navbar-link'>Favorites</NavLink>
-      <NavLink to="/gallery" className="navbar-link">Gallery</NavLink>
-      <NavLink to='/support' className='navbar-link'>Contact & Help</NavLink>
+      <div className="logo">Nairobi Bitez</div>
+      <div className="nav-links">
+        <NavLink to="/" className="navbar-link">Home</NavLink>
+        <NavLink to="/restaurants" className="navbar-link">Restaurants</NavLink>
+        <NavLink to="/favorites" className="navbar-link">Favorites</NavLink>
+        <NavLink to="/profile" className="navbar-link">Profile</NavLink>
+        <NavLink to="/signup" className="navbar-link">Sign Up</NavLink>
+        <NavLink to="/login" className="navbar-link">Log In</NavLink>
+        {/* <NavLink to='/favorites' className='navbar-link'>Favorites</NavLink>
+        <NavLink to="/gallery" className="navbar-link">Gallery</NavLink>
+        <NavLink to='/support' className='navbar-link'>Contact & Help</NavLink> */}
+      </div>
     </nav>
   );
 }
 
 export default NavBar1;
+

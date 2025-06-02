@@ -1,5 +1,5 @@
-import React from 'react';
-import './FoodGallery.css'
+// import React from 'react';
+// import './FoodGallery.css'
 
 const foodItems=[
   {
@@ -189,4 +189,4 @@ function FoodGallery() {
   );
 }
 
-export default FoodGallery;
+// export default FoodGallery;
