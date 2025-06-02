@@ -1,18 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+function Restaurant({ name, address, cuisine, ratings,hours, reviews, image, id, onRemove}) {
 
-function Restaurant({ name, address, cuisine, ratings, hours, reviews, image, id, onAddReview }) {
-  const [newReview, setNewReview] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (newReview.trim()) {
-      onAddReview(id, newReview);
-      setNewReview("");
-    }
-  };
-
-  return (
+ return (
     <div className="restaurant-card">
       <img src={image} alt={name} className="restaurant-image" />
       <div className="restaurant-content">
@@ -25,27 +15,23 @@ function Restaurant({ name, address, cuisine, ratings, hours, reviews, image, id
           <span className="restaurant-hours">{hours}</span>
         </div>
 
-        <ul className="restaurant-reviews">
-          {reviews.map((review, index) => (
-            <li key={index}>{review}</li>
-          ))}
-        </ul>
-
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={newReview}
-            onChange={(e) => setNewReview(e.target.value)}
-            placeholder="Add a review..."
-          />
-          <button type="submit" className="restaurant-button">
-            Submit Review
-          </button>
-        </form>
+        {reviews.map((review, idx) => (
+          <li key={idx} className="restaurant-reviews">{review}</li>
+        ))}
 
         <Link to={`/Restaurants/${id}`} className="restaurant-button">
           View Restaurant
         </Link>
+
+        {onRemove && (
+          <button
+            onClick={onRemove}
+            className="remove-favorite-button"
+            type="button"
+          >
+            Remove from Favorites
+          </button>
+        )}
       </div>
     </div>
   );
