@@ -6,7 +6,7 @@
 
 ## 🌐 Live Demo
 
- Click here to view the live app : [https://nairobibitez.netlify.app/](#)
+ Click here to view the live app : [https://nairobibitez.netlify.app/]
 
 ## 🚀 Features
 
@@ -30,7 +30,7 @@
 | `/`               | Home               | Landing page showcasing highlights          |
 | `/restaurants`    | Restaurants        | List and explore Nairobi restaurants        |
 | `/favorites`      | Favorites          | View your saved favorite restaurants        |
-| `/profile`        | Profile            | User profile and account settings           |
+| `/profile`        | Profile            | User profile           |
 | `/trending`       | Trending           | See what’s hot in Nairobi's food scene      |
 | `/food-gallery`   | FoodGallery        | Explore food imagery from different places  |
 | `/reservations`   | Reservations       | Book tables at selected restaurants         |
