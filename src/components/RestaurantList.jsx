@@ -1,49 +1,47 @@
 import { useState, useEffect } from 'react';
 import Restaurant from './Restaurant';
-// import Favourite from './FavouriteList';
-
+import SearchBar from './SearchBar';
 
 function RestaurantLists() {
   const [restaurantData, setRestaurantData] = useState([]);
-  const [favourites, setFavourites] = useState([]);
-  // const [showFavouritesOnly, setShowFavouritesOnly] = useState(false);
-
+  const [filteredData, setFilteredData] = useState([]);
+  
   useEffect(() => {
     fetch('https://restaurant-api-hur7.onrender.com/restaurants')
       .then(r => r.json())
-      .then(data => setRestaurantData(data));
+      .then(data => {
+        setRestaurantData(data);
+        setFilteredData(data);
+      });
   }, []);
 
-  const toggleFavourite = (id) => {
-    setFavourites((prev) =>
-      prev.includes(id) ? prev.filter((favId) => favId !== id) : [...prev, id]
+  const handleSearch = (query) => {
+    const filtered = restaurantData.filter((restaurant) =>
+      restaurant.name.toLowerCase().includes(query.toLowerCase())
     );
+    setFilteredData(filtered);
   };
 
-  // const displayedRestaurants = showFavouritesOnly
-  //   ? restaurantData.filter((r) => favourites.includes(r.id))
-  //   : restaurantData;
-
   return (
-    <div>
-      {/* <button onClick={() => setShowFavouritesOnly(!showFavouritesOnly)}>
-        {showFavouritesOnly ? "Show All Restaurants" : "Show Favourites Only"}
-      </button> */}
-
+    <>
+      <SearchBar onSearch={handleSearch} />
       <div className="restaurant-grid">
-        {restaurantData.map((restaurant) => (
-          <div key={restaurant.id} className="restaurant-card">
-           <Restaurant
+        {filteredData.map((restaurant) => (
+          <Restaurant
             key={restaurant.id}
-            {...restaurant}
-            isFavourite={favourites.includes(restaurant.id)}
-            onToggleFavourite={() => toggleFavourite(restaurant.id)}
-            />
-
-          </div>
+            id={restaurant.id}
+            name={restaurant.name}
+            address={restaurant.address}
+            cuisine={restaurant.cuisine}
+            ratings={restaurant.ratings}
+            menu={restaurant.menu}
+            hours={restaurant.hours}
+            reviews={restaurant.reviews}
+            image={restaurant.image}
+          />
         ))}
       </div>
-    </div>
+    </>
   );
 }
 
