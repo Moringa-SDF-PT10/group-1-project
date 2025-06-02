@@ -1,4 +1,5 @@
 import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
+import homepageImage from '../assets/assets/Homepage.png';
 
 function Home(){
   return (
@@ -21,7 +22,7 @@ function Home(){
           </div>
         </div>
         <div className="home-image">
-          <img src="src/assets/assets/Homepage.png" alt="homepage" />
+          <img src={homepageImage} alt="homepage" />
         </div>
       </section>
     </div>
